@@ -3,7 +3,6 @@ const client = new Discord.Client();
 const token = process.env.TOKEN_BOT;
 var prefix = "+";
 
-console.log(token);
 client.login(token);
 
 client.on("ready", () => {
