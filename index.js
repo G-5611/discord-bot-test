@@ -1,17 +1,28 @@
-require('dotenv').config({silent: true});
 const Discord = require('discord.js');
-
-const bot = new Discord.Client();
-
+const client = new Discord.Client();
 const token = process.env.TOKEN_BOT;
+var prefix = "+";
 
-bot.login(token)
-bot.on('ready', () => {
-    console.log('Ready to Use')
+console.log(token);
+client.login(token);
+
+client.on("ready", () => {
+  console.log("Bot is online");
+  //console.log(`Bot is online, with ${client.users.size} users, in ${client.channels.size} channels, in ${client.guilds.size} servers.`);
+  //client.user.setGame(`Working in ${client.guilds.size} servers.`);
 })
 
-bot.on('message', msg => {
-    if (msg.content === 'ping'){
-        msg.reply('pong')
-    }
-})
+
+client.on("message", async message =>{
+  if(message.author.bot) return;
+  if(message.channel.type === "dm") return;
+
+  //const args = message.content.slice(prefix.lenght).trim().split(/ +/g);
+ //const commando = args.shift().toLowerCase();
+
+  if(message.content.startsWith(prefix + "ping")) {
+    const m = await message.channel.send("Ping?");
+    m.edit(`Pong! The latency is ${m.createdTimestamp - message.createdTimestamp}ms.`)
+  }
+});
+
