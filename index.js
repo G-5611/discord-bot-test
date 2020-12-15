@@ -1,9 +1,10 @@
+require('dotenv').config({silent: true});
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const token = process.env.TOKEN_BOT;
+
 var prefix = "+";
 
-console.log(token);
 client.login(token);
 
 client.on("ready", () => {
@@ -22,7 +23,7 @@ client.on("message", async message =>{
 
   if(message.content.startsWith(prefix + "ping")) {
     const m = await message.channel.send("Ping?");
-    m.edit(`Pong! The latency is ${m.createdTimestamp - message.createdTimestamp}ms.`)
+    m.edit(`Pong! The latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`)
   }
 });
 
